@@ -11,7 +11,8 @@ module.exports = {
   entry: ['@babel/polyfill', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle-[hash].js',
+    filename: 'js/bundle-[hash].js',
+    publicPath: '/',
   },
   mode: 'production',
   resolve: {
@@ -35,6 +36,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
+              name: 'img/[hash].[ext]',
             },
           },
           'image-webpack-loader',
@@ -42,7 +44,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader'],
+        use: ['file-loader?name=fonts/[name].[ext]'],
       },
       {
         test: /\.html$/,
@@ -71,7 +73,7 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: '[name]-[hash].css',
+      filename: 'css/[name]-[hash].css',
     }),
   ],
   optimization: {
