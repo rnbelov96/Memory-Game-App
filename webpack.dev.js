@@ -20,6 +20,10 @@ module.exports = {
   mode: 'development',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', 'json'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   module: {
     rules: [
