@@ -9,7 +9,7 @@ import App from './App';
 import bg from './images/bg.png';
 
 const GlobalStyle = createGlobalStyle`
-  ${reboot}
+  ${reboot()}
 
   body {
     background: url(${bg})

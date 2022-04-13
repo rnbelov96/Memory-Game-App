@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: ['@babel/polyfill', './src/index.jsx'],
+  entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle-[hash].js',
@@ -19,12 +19,12 @@ module.exports = {
   },
   mode: 'development',
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', 'json'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
