@@ -1,14 +1,15 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import './style/main.sass';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 import reboot from 'styled-reboot';
-import App from './App';
 import bg from './images/bg.png';
 import rootReducer from './redux/root-reducer';
+import App from './components/app/app';
 
 const GlobalStyle = createGlobalStyle`
   ${reboot()}
