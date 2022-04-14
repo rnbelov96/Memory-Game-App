@@ -2,9 +2,9 @@ import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import findMinutes from '@/functions/find-minutes';
 import findSeconds from '@/functions/find-seconds';
+import { WinScreenPropsType } from '@/types/components/win-screen';
 
 const WinnerContainer = styled.div`
   display: flex;
@@ -29,8 +29,11 @@ const WinnerContainer = styled.div`
   }
 `;
 
-const WinScreen = ({
-  timer, moves, stars, onStart,
+const WinScreen: React.FunctionComponent<WinScreenPropsType> = ({
+  timer,
+  moves,
+  stars,
+  onStart,
 }) => (
   <WinnerContainer>
     <div>
@@ -47,12 +50,5 @@ const WinScreen = ({
     </button>
   </WinnerContainer>
 );
-
-WinScreen.propTypes = {
-  moves: PropTypes.number.isRequired,
-  onStart: PropTypes.func.isRequired,
-  timer: PropTypes.number.isRequired,
-  stars: PropTypes.number.isRequired,
-};
 
 export default WinScreen;

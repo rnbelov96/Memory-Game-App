@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import { AppActionCreators } from '@/redux/app/app-reducer';
 import {
@@ -15,8 +15,11 @@ import {
 import WinScreen from '../win-screen/win-screen';
 import Card from '../card/card';
 import GameStatusBar from '../game-status-bar/game-status-bar';
+import { AppPropsType } from '@/types/components/app';
+import { FullStateType } from '@/types/general-types';
+import { AppActionType } from '@/types/redux/app-reducer';
 
-let timerId;
+let timerId = setInterval(() => {}, 0);
 
 const Title = styled.h1`
   margin-bottom: 7px;
@@ -45,7 +48,7 @@ const Desk = styled.section`
   align-items: center;
 `;
 
-const App = ({
+const App: React.FunctionComponent<AppPropsType> = ({
   cards,
   onOpenCard,
   openCards,
@@ -103,24 +106,7 @@ const App = ({
   );
 };
 
-App.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.object,
-      open: PropTypes.bool,
-    }),
-  ).isRequired,
-  onOpenCard: PropTypes.func.isRequired,
-  openCards: PropTypes.arrayOf(PropTypes.number).isRequired,
-  isLocked: PropTypes.bool.isRequired,
-  cardsLeft: PropTypes.number.isRequired,
-  moves: PropTypes.number.isRequired,
-  onStart: PropTypes.func.isRequired,
-  timer: PropTypes.number.isRequired,
-  stars: PropTypes.number.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: FullStateType) => ({
   cards: getCards(state),
   openCards: getOpenCards(state),
   isLocked: getCardsLockStatus(state),
@@ -130,8 +116,8 @@ const mapStateToProps = state => ({
   stars: getStars(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onOpenCard: (index, openCards) => {
+const mapDispatchToProps = (dispatch: Dispatch<AppActionType>) => ({
+  onOpenCard: (index: number, openCards: number[]) => {
     if (openCards.length === 1) {
       dispatch(AppActionCreators.lockCards());
       dispatch(AppActionCreators.openCard(index));

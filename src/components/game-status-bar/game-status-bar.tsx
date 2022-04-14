@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
 import convertNumToStars from '@/functions/convert-num-to-stars';
 import findMinutes from '@/functions/find-minutes';
 import findSeconds from '@/functions/find-seconds';
+import { GameStatusBarPropsType } from '@/types/components/game-status-bar';
 
 const GameStatusComponent = styled.section`
   display: flex;
@@ -27,8 +27,11 @@ const GameStatusComponent = styled.section`
   }
 `;
 
-const GameStatusBar = ({
-  stars, timer, moves, onStart,
+const GameStatusBar: React.FunctionComponent<GameStatusBarPropsType> = ({
+  stars,
+  timer,
+  moves,
+  onStart,
 }) => (
   <GameStatusComponent>
     <div>
@@ -41,12 +44,5 @@ const GameStatusBar = ({
     <FontAwesomeIcon onClick={onStart} icon={faRedo} />
   </GameStatusComponent>
 );
-
-GameStatusBar.propTypes = {
-  moves: PropTypes.number.isRequired,
-  onStart: PropTypes.func.isRequired,
-  timer: PropTypes.number.isRequired,
-  stars: PropTypes.number.isRequired,
-};
 
 export default GameStatusBar;

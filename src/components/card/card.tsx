@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CardComponentProps, CardPropsType } from '@/types/components/card';
 
-const CardComponent = styled.div`
+const CardComponent = styled.div<CardComponentProps>`
   height: 21%;
   width: 21%;
   overflow: hidden;
@@ -18,7 +18,7 @@ const CardComponent = styled.div`
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 `;
 
-const Card = ({
+const Card: React.FunctionComponent<CardPropsType> = ({
   cardStatus,
   cardIndex,
   icon,
@@ -28,21 +28,12 @@ const Card = ({
 }) => (
   <CardComponent
     onClick={
-      cardStatus || isLocked ? null : () => onOpenCard(cardIndex, openCards)
+      cardStatus || isLocked ? () => {} : () => onOpenCard(cardIndex, openCards)
     }
     open={cardStatus}
   >
     <FontAwesomeIcon icon={icon} />
   </CardComponent>
 );
-
-Card.propTypes = {
-  cardStatus: PropTypes.bool.isRequired,
-  cardIndex: PropTypes.number.isRequired,
-  icon: PropTypes.object.isRequired,
-  isLocked: PropTypes.bool.isRequired,
-  onOpenCard: PropTypes.func.isRequired,
-  openCards: PropTypes.arrayOf(PropTypes.number).isRequired,
-};
 
 export default Card;
