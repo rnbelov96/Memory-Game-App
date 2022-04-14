@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import findMinutes from '../functions/find-minutes';
+import findSeconds from '../functions/find-seconds';
+import convertNumToStars from '../functions/convert-num-to-stars';
+import { AppActionCreators } from '@/redux/app/app-reducer';
 import {
-  openCard,
-  matchCards,
-  lockCards,
-  unLockCards,
-  addSecond,
-  startNewGame,
-} from '../redux/actions/actions';
-import findMinutes from '../functions/findMinutes';
-import findSeconds from '../functions/findSeconds';
-import convertNumToStars from '../functions/convertNumToStars';
+  getCards,
+  getCardsLeftNumber,
+  getCardsLockStatus,
+  getMoves,
+  getOpenCards,
+  getStars,
+  getTimer,
+} from '@/redux/app/selectors';
 
 let timerId;
 
@@ -173,10 +175,12 @@ function MemoryGame({
 }
 
 MemoryGame.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.shape({
-    icon: PropTypes.object,
-    open: PropTypes.bool,
-  })).isRequired,
+  cards: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.object,
+      open: PropTypes.bool,
+    }),
+  ).isRequired,
   onOpenCard: PropTypes.func.isRequired,
   openCards: PropTypes.arrayOf(PropTypes.number).isRequired,
   isLocked: PropTypes.bool.isRequired,
@@ -189,13 +193,13 @@ MemoryGame.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    cards: state.appState.cards,
-    openCards: state.appState.openCards,
-    isLocked: state.appState.isLocked,
-    cardsLeft: state.appState.cardsLeft,
-    moves: state.appState.moves,
-    timer: state.appState.timer,
-    stars: state.appState.stars,
+    cards: getCards(state),
+    openCards: getOpenCards(state),
+    isLocked: getCardsLockStatus(state),
+    cardsLeft: getCardsLeftNumber(state),
+    moves: getMoves(state),
+    timer: getTimer(state),
+    stars: getStars(state),
   };
 }
 
@@ -203,22 +207,22 @@ function mapDispatchToProps(dispatch) {
   return {
     onOpenCard: (index, openCards) => {
       if (openCards.length === 1) {
-        dispatch(lockCards());
-        dispatch(openCard(index));
+        dispatch(AppActionCreators.lockCards());
+        dispatch(AppActionCreators.openCard(index));
         setTimeout(() => {
-          dispatch(matchCards());
-          dispatch(unLockCards());
+          dispatch(AppActionCreators.matchCards());
+          dispatch(AppActionCreators.unlockCards());
         }, 500);
         return;
       }
-      dispatch(openCard(index));
+      dispatch(AppActionCreators.openCard(index));
     },
     onStart: () => {
       clearInterval(timerId);
       timerId = setInterval(() => {
-        dispatch(addSecond());
+        dispatch(AppActionCreators.addSecond());
       }, 1000);
-      dispatch(startNewGame());
+      dispatch(AppActionCreators.startNewGame());
     },
   };
 }

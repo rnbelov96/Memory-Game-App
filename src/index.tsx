@@ -6,9 +6,9 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 import reboot from 'styled-reboot';
-import rootReducer from './redux/reducers/rootReducer';
 import App from './App';
 import bg from './images/bg.png';
+import rootReducer from './redux/root-reducer';
 
 const GlobalStyle = createGlobalStyle`
   ${reboot()}

@@ -1,28 +1,70 @@
+import shuffleCards from '@/functions/shuffle-cards';
 import {
-  OPENCARD,
-  MATCHCARDS,
-  LOCKCARDS,
-  UNLOCKCARDS,
-  ADDSECOND,
-  STARTNEWGAME,
-} from '../actions/actionsTypes';
-import shuffleCards from '../../functions/fieldCreator';
+  AddSecondActionType,
+  AppActionConstType,
+  AppActionType,
+  AppInitialStateType,
+  LockCardsActionType,
+  MatchCardsActionType,
+  OpenCardActionType,
+  StartNewGameActionType,
+  UnlockCardsActionType,
+} from '@/types/redux/app-reducer';
 
-const initialState = {
+const initialState: AppInitialStateType = {
   cards: shuffleCards(),
   openCards: [],
-  isLocked: false,
+  isCardsLocked: false,
   cardsLeft: 16,
   moves: 0,
   timer: 0,
   stars: 3,
 };
 
-export default function(state = initialState, action) {
+const ActionTypes: AppActionConstType = {
+  ADD_SECOND: 'ADD_SECOND',
+  START_NEW_GAME: 'START_NEW_GAME',
+  OPEN_CARD: 'OPEN_CARD',
+  MATCH_CARDS: 'MATCH_CARDS',
+  LOCK_CARDS: 'LOCK_CARDS',
+  UNLOCK_CARDS: 'UNLOCK_CARDS',
+};
+
+const ActionCreators = {
+  addSecond: (): AddSecondActionType => ({
+    type: ActionTypes.ADD_SECOND,
+  }),
+
+  startNewGame: (): StartNewGameActionType => ({
+    type: ActionTypes.START_NEW_GAME,
+  }),
+
+  openCard: (data: number): OpenCardActionType => ({
+    type: ActionTypes.OPEN_CARD,
+    payload: data,
+  }),
+
+  matchCards: (): MatchCardsActionType => ({
+    type: ActionTypes.MATCH_CARDS,
+  }),
+
+  lockCards: (): LockCardsActionType => ({
+    type: ActionTypes.LOCK_CARDS,
+  }),
+
+  unlockCards: (): UnlockCardsActionType => ({
+    type: ActionTypes.UNLOCK_CARDS,
+  }),
+};
+
+const reducer = (
+  state: AppInitialStateType = initialState,
+  action: AppActionType,
+) => {
   const newCardsStatus = [...state.cards];
   const newOpenCards = [...state.openCards];
   switch (action.type) {
-    case OPENCARD:
+    case ActionTypes.OPEN_CARD:
       newCardsStatus[action.payload].open = true;
       newOpenCards.push(action.payload);
       return {
@@ -31,7 +73,7 @@ export default function(state = initialState, action) {
         openCards: newOpenCards,
       };
 
-    case MATCHCARDS:
+    case ActionTypes.MATCH_CARDS:
       if (
         state.cards[state.openCards[0]].icon
         === state.cards[state.openCards[1]].icon
@@ -63,25 +105,25 @@ export default function(state = initialState, action) {
         moves: state.moves + 1,
       };
 
-    case LOCKCARDS:
+    case ActionTypes.LOCK_CARDS:
       return {
         ...state,
         isLocked: true,
       };
 
-    case UNLOCKCARDS:
+    case ActionTypes.UNLOCK_CARDS:
       return {
         ...state,
         isLocked: false,
       };
 
-    case ADDSECOND:
+    case ActionTypes.ADD_SECOND:
       return {
         ...state,
         timer: state.timer + 1,
       };
 
-    case STARTNEWGAME:
+    case ActionTypes.START_NEW_GAME:
       return {
         ...initialState,
         cards: shuffleCards(),
@@ -91,4 +133,10 @@ export default function(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export {
+  reducer as appReducer,
+  ActionCreators as AppActionCreators,
+  ActionTypes as AppActionTypes,
+};
