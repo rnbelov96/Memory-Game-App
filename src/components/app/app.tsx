@@ -12,12 +12,12 @@ import {
   getStars,
   getTimer,
 } from '@/redux/app/selectors';
-import WinScreen from '../win-screen/win-screen';
-import Card from '../card/card';
-import GameStatusBar from '../game-status-bar/game-status-bar';
 import { AppPropsType } from '@/types/components/app';
 import { FullStateType } from '@/types/general-types';
 import { AppActionType } from '@/types/redux/app-reducer';
+import { Card } from '../card';
+import { GameStatusBar } from '../game-status-bar';
+import { WinScreen } from '../win-screen';
 
 let timerId = setInterval(() => {}, 0);
 
@@ -48,7 +48,7 @@ const Desk = styled.section`
   align-items: center;
 `;
 
-const App: React.FunctionComponent<AppPropsType> = ({
+export const PureApp: React.FunctionComponent<AppPropsType> = ({
   cards,
   onOpenCard,
   openCards,
@@ -138,4 +138,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AppActionType>) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export const App = connect(mapStateToProps, mapDispatchToProps)(PureApp);

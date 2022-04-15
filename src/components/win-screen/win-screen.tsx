@@ -29,7 +29,7 @@ const WinnerContainer = styled.div`
   }
 `;
 
-const WinScreen: React.FunctionComponent<WinScreenPropsType> = ({
+export const WinScreen: React.FunctionComponent<WinScreenPropsType> = ({
   timer,
   moves,
   stars,

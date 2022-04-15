@@ -27,7 +27,7 @@ const GameStatusComponent = styled.section`
   }
 `;
 
-const GameStatusBar: React.FunctionComponent<GameStatusBarPropsType> = ({
+export const GameStatusBar: React.FunctionComponent<GameStatusBarPropsType> = ({
   stars,
   timer,
   moves,

@@ -18,7 +18,7 @@ const CardComponent = styled.div<CardComponentProps>`
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 `;
 
-const Card: React.FunctionComponent<CardPropsType> = ({
+export const Card: React.FunctionComponent<CardPropsType> = ({
   cardStatus,
   cardIndex,
   icon,

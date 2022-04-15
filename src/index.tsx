@@ -8,7 +8,7 @@ import { createGlobalStyle } from 'styled-components';
 import reboot from 'styled-reboot';
 import bg from './images/bg.png';
 import rootReducer from './redux/root-reducer';
-import App from './components/app/app';
+import { App } from './components/app';
 
 const GlobalStyle = createGlobalStyle`
   ${reboot()}
