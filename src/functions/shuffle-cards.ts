@@ -76,8 +76,6 @@ const cards = [
   },
 ];
 
-export default function() {
-  return cards
-    .map(el => ({ ...el }))
-    .sort(() => Math.random() - 0.5);
-}
+export default () => cards
+  .map(el => ({ ...el }))
+  .sort(() => Math.random() - 0.5);

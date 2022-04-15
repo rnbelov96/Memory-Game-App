@@ -1,7 +1,7 @@
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 
-export default function(num) {
+export default (num: number) => {
   switch (num) {
     case 0:
       return [faStar, faStar, faStar];
@@ -18,4 +18,4 @@ export default function(num) {
     default:
       return [faStarSolid, faStarSolid, faStarSolid];
   }
-}
+};
