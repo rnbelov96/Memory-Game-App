@@ -60,7 +60,7 @@ const ActionCreators = {
 const reducer = (
   state: AppInitialStateType = initialState,
   action: AppActionType,
-) => {
+): AppInitialStateType => {
   const newCardsStatus = [...state.cards];
   const newOpenCards = [...state.openCards];
   switch (action.type) {
@@ -108,13 +108,13 @@ const reducer = (
     case ActionTypes.LOCK_CARDS:
       return {
         ...state,
-        isLocked: true,
+        isCardsLocked: true,
       };
 
     case ActionTypes.UNLOCK_CARDS:
       return {
         ...state,
-        isLocked: false,
+        isCardsLocked: false,
       };
 
     case ActionTypes.ADD_SECOND:

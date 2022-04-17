@@ -9,7 +9,7 @@ import {
   faFirefoxBrowser,
 } from '@fortawesome/free-brands-svg-icons';
 
-const cards = [
+export const cards = [
   {
     icon: faReact,
     open: false,
